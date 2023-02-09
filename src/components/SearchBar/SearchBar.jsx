@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import { toast } from 'react-toastify';
+import PropTypes from 'prop-types';
+
 export const SearchBar = ({ formSubmit }) => {
   const [query, setQuery] = useState('');
 
@@ -8,7 +11,12 @@ export const SearchBar = ({ formSubmit }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
+    if (query.trim() === '') {
+      toast.error('Please fill the field');
+      return;
+    }
     formSubmit(query);
+    setQuery('');
   };
 
   return (
@@ -19,4 +27,8 @@ export const SearchBar = ({ formSubmit }) => {
       </label>
     </form>
   );
+};
+
+SearchBar.propTypes = {
+  formSubmit: PropTypes.func.isRequired,
 };
