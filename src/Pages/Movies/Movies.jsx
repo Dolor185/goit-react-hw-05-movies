@@ -3,11 +3,13 @@ import { useState, useEffect } from 'react';
 import { MoviesList } from 'components/MoviesList/MoviesList';
 import { getMovies } from 'Service/MoviedbAPI';
 import { useLocation, useSearchParams } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Loader } from 'components/Loader/Loader';
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query') ?? '';
   const location = useLocation();
@@ -19,13 +21,26 @@ const Movies = () => {
     if (query === '') {
       return;
     }
-    getMovies(query).then(res => setMovies(res.results));
+    setLoading(true);
+    getMovies(query)
+      .then(res => setMovies(res.results))
+      .catch(err => {
+        toast.error(`Цу didn't find the movie ${query} `);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, [query]);
 
   return (
     <div>
       <SearchBar formSubmit={formSubmit} />
-      {movies && <MoviesList movies={movies} location={location} />}
+
+      {movies && !loading ? (
+        <MoviesList movies={movies} location={location} />
+      ) : (
+        <Loader />
+      )}
       <ToastContainer />
     </div>
   );

@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 export const MoviesList = ({ movies, location }) => {
-  console.log(movies);
   return (
     <ul>
       {movies.map(({ id, original_title }) => {

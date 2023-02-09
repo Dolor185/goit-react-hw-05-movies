@@ -4,12 +4,13 @@ import { Header } from './Header/Header';
 import { MovieCard } from './MovieDetails/MovieDetails';
 import { Cast } from './Cast/Cast';
 import { Reviews } from './Reviews/Reviews';
+import { Loader } from './Loader/Loader';
 
 const Home = lazy(() => import('../Pages/Home/Home'));
 const Movies = lazy(() => import('../Pages/Movies/Movies'));
 export const App = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loader />}>
       <Routes>
         <Route path="/" element={<Header />}>
           <Route index element={<Home />} />
