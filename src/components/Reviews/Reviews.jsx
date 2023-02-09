@@ -8,7 +8,6 @@ export const Reviews = () => {
   useEffect(() => {
     getMovieReviews(movieId).then(res => setReviews(res.results));
   }, [movieId]);
-  console.log(reviews);
 
   return reviews.length !== 0 ? (
     <div>
