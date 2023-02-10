@@ -8,7 +8,7 @@ export const Cast = () => {
   useEffect(() => {
     getMovieCasts(movieId).then(res => setCasts(res.cast));
   }, [movieId]);
-  return (
+  return casts.length !== 0 ? (
     <ul>
       {casts.map(({ name, id, profile_path, character }) => {
         const castImg = {
@@ -31,5 +31,7 @@ export const Cast = () => {
         );
       })}
     </ul>
+  ) : (
+    <p> We can't find the cast of this movie</p>
   );
 };

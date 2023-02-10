@@ -57,10 +57,14 @@ export const MovieCard = () => {
         <h3>Additional information</h3>
         <ul>
           <li>
-            <Link to={'cast'}>Cast</Link>
+            <Link to={'cast'} state={{ from: backLink }}>
+              Cast
+            </Link>
           </li>
           <li>
-            <Link to={'reviews'}>reviews</Link>
+            <Link to={'reviews'} state={{ from: backLink }}>
+              reviews
+            </Link>
           </li>
         </ul>
       </div>
